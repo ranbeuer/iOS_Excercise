@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  iOS_Exercise
+
+  Created by Leonardo Cid on 4/10/19.
+  Copyright © 2019 iTexico. All rights reserved.
+*/
+
+"PopularMovies" = "Popular Movies";
+"TopRatedMovies" = "Top Rated";
+
