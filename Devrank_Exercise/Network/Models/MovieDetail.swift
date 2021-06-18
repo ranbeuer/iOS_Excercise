@@ -35,12 +35,18 @@ class MovieDetail : Mappable {
     
     var imageUrl : String {
         get {
+            guard posterPath != nil else {
+                return ""
+            }
             return "https://image.tmdb.org/t/p/w185" + posterPath!
         }
     }
     
     var backdropUrl : String {
         get {
+            guard backdropPath != nil else {
+                return ""
+            }
             return "https://image.tmdb.org/t/p/w500" + backdropPath!
         }
     }

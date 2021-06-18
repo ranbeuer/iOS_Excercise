@@ -44,7 +44,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let isIpad = UIDevice.current.userInterfaceIdiom == .pad
         let isPortrait = UIDevice.current.orientation.isPortrait
         
-        let numberOfColumns = isIpad ? (isPortrait ?  4 : 6) : (isPortrait ? 2 : 4)
+        let numberOfColumns = isIpad ? (isPortrait ?  4 : 8) : (isPortrait ? 3 : 6)
         cellWidth = width / CGFloat(numberOfColumns)
         print("width: \(width), Number Of Columns: \(numberOfColumns)")
         if (ratio != 0) {
@@ -129,6 +129,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         gettingMore = viewModel.checkForMore(movieIndex: indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedMovie = movies[indexPath.row]
+        gotoDetail()
+    }
+    
+    func gotoDetail() {
+        performSegue(withIdentifier: "detail", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? MovieDetailViewController, let movie = selectedMovie {
+            controller.movieId = movie.id!
+        }
     }
     
     @IBAction func toggleMovies() {
