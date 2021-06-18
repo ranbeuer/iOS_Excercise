@@ -37,6 +37,7 @@ class WSHelper {
     static let sharedInstance = WSHelper()
     
     typealias ResultBlockForMovies = (_ response: DataResponse<MoviesResponse>?, _ error: Error?)-> Void
+    typealias ResultBlockForMovieDetail = (_ response: DataResponse<MovieDetail>?, _ error: Error?)-> Void
     
 
     typealias ResultBlock = (_ response: Any?, _ error: Error?)-> Void
@@ -84,6 +85,34 @@ class WSHelper {
         })
     }
     
+    
+    func getMovieDetail(id: Int, result: @escaping ResultBlockForMovieDetail) {
+        let url = WSHelper.getBaseURL() + "movie/\(id)"
+        
+        let parameters = ["api_key" : kAPIKey, "language": language] as [String : Any]
+        
+        Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseObject(completionHandler: {  (response: DataResponse<MovieDetail>) in
+            switch response.result {
+            case .success:
+                if (WSHelper.logEverything) {
+                    let data = response.data as Data?
+                    let jsonString = String(data: data!, encoding: .utf8)
+                    print(jsonString!)
+                }
+                result(response, nil)
+                break;
+            case .failure(let error):
+                if (WSHelper.logEverything) {
+                    print(error)
+                    if let data = response.data {
+                        let json = String(data: data, encoding: String.Encoding.utf8)
+                        print("Failure Response: \(String(describing: json))")
+                    }
+                }
+                result(nil, error)
+            }
+        })
+    }
     
     
 //    func send
