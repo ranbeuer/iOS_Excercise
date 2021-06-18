@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,9 @@
 		A8509155267BFACD0008FF44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8509153267BFACD0008FF44 /* LaunchScreen.storyboard */; };
 		A8509160267BFACD0008FF44 /* Devrank_ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A850915F267BFACD0008FF44 /* Devrank_ExerciseTests.swift */; };
 		A850916B267BFACD0008FF44 /* Devrank_ExerciseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A850916A267BFACD0008FF44 /* Devrank_ExerciseUITests.swift */; };
+		A8509197267C75850008FF44 /* WSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8509196267C75850008FF44 /* WSHelper.swift */; };
+		A850919C267C75970008FF44 /* MoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A850919B267C75970008FF44 /* MoviesResponse.swift */; };
+		A85091A1267C75C40008FF44 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85091A0267C75C40008FF44 /* Movie.swift */; };
 		F0E93B882B2EA5BDE4A3EE9D /* Pods_Devrank_Exercise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D980950E0CA476DFBEFDB02E /* Pods_Devrank_Exercise.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +54,9 @@
 		A8509166267BFACD0008FF44 /* Devrank_ExerciseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Devrank_ExerciseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A850916A267BFACD0008FF44 /* Devrank_ExerciseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devrank_ExerciseUITests.swift; sourceTree = "<group>"; };
 		A850916C267BFACD0008FF44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8509196267C75850008FF44 /* WSHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHelper.swift; sourceTree = "<group>"; };
+		A850919B267C75970008FF44 /* MoviesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesResponse.swift; sourceTree = "<group>"; };
+		A85091A0267C75C40008FF44 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		D980950E0CA476DFBEFDB02E /* Pods_Devrank_Exercise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Devrank_Exercise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18505461506E2760D36E433 /* Pods-Devrank_Exercise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Devrank_Exercise.debug.xcconfig"; path = "Target Support Files/Pods-Devrank_Exercise/Pods-Devrank_Exercise.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +112,7 @@
 		A8509147267BFACB0008FF44 /* Devrank_Exercise */ = {
 			isa = PBXGroup;
 			children = (
+				A8509193267C74380008FF44 /* Network */,
 				A8509148267BFACB0008FF44 /* AppDelegate.swift */,
 				A850914A267BFACB0008FF44 /* SceneDelegate.swift */,
 				A850914C267BFACB0008FF44 /* ViewController.swift */,
@@ -135,6 +142,32 @@
 			path = Devrank_ExerciseUITests;
 			sourceTree = "<group>";
 		};
+		A8509193267C74380008FF44 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A8509196267C75850008FF44 /* WSHelper.swift */,
+				A8509195267C74970008FF44 /* Models */,
+				A8509194267C74820008FF44 /* Responses */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A8509194267C74820008FF44 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				A850919B267C75970008FF44 /* MoviesResponse.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		A8509195267C74970008FF44 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A85091A0267C75C40008FF44 /* Movie.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B01234C23EEA7869E8152E4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +182,6 @@
 				E18505461506E2760D36E433 /* Pods-Devrank_Exercise.debug.xcconfig */,
 				77D08AB58235BD43F523559E /* Pods-Devrank_Exercise.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -329,7 +361,10 @@
 			files = (
 				A850914D267BFACB0008FF44 /* ViewController.swift in Sources */,
 				A8509149267BFACB0008FF44 /* AppDelegate.swift in Sources */,
+				A85091A1267C75C40008FF44 /* Movie.swift in Sources */,
+				A850919C267C75970008FF44 /* MoviesResponse.swift in Sources */,
 				A850914B267BFACB0008FF44 /* SceneDelegate.swift in Sources */,
+				A8509197267C75850008FF44 /* WSHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
