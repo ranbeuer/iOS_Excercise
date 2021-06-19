@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class MovieDetail : Mappable {
+struct MovieDetail : Mappable {
     var voteCount: Int?
     var id: Int?
     var isVideo: Bool?
@@ -29,7 +29,7 @@ class MovieDetail : Mappable {
     var tagline: String?
     var runtime: Int?
     
-    required init?(map: Map){
+    init?(map: Map){
         
     }
     
@@ -51,7 +51,7 @@ class MovieDetail : Mappable {
         }
     }
         
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         backdropPath <- map["backdrop_path"]
         forAdults <- map["adult"]
         genres <- map["genres"]
@@ -73,30 +73,34 @@ class MovieDetail : Mappable {
     }
 }
 
-class Genre : Mappable {
+struct Genre : Mappable {
     var id: Int?
     var name: String?
     
-    required init?(map: Map) {
+    init?(map: Map) {
         
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         id <- map["id"]
         name <- map["name"]
     }
+    
+    var description: String {
+        return name!
+    }
 }
 
-class Company : Mappable {
+struct Company : Mappable {
     var id: Int?
     var name: String?
     var originCountry: String?
     var logoPath: String?
-    required init?(map: Map) {
+    init?(map: Map) {
         
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         id <- map["id"]
         name <- map["name"]
         logoPath <- map["logo_path"]

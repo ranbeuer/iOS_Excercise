@@ -19,8 +19,6 @@ public enum MoviesType : String  {
 
 class WSHelper {
     
-    
-    
     let kAPIKey = "9660e09bc51564013f36b33514250a3f"
     
     
@@ -39,6 +37,8 @@ class WSHelper {
     typealias ResultBlockForMovies = (_ response: DataResponse<MoviesResponse>?, _ error: Error?)-> Void
     typealias ResultBlockForMovieDetail = (_ response: DataResponse<MovieDetail>?, _ error: Error?)-> Void
     
+    typealias ResultBlockForGenres = (_ response: DataResponse<GenreResponse>?, _ error: Error?)-> Void
+    
 
     typealias ResultBlock = (_ response: Any?, _ error: Error?)-> Void
     
@@ -46,6 +46,8 @@ class WSHelper {
     
     init() {
         language = Locale.current.languageCode!
+        let country = language == "en" ? "US" : "MX"
+        language = "\(language)-\(country)"
     }
     
     static func setBaseURL(_ url: String) {
@@ -99,6 +101,35 @@ class WSHelper {
                     let jsonString = String(data: data!, encoding: .utf8)
                     print(jsonString!)
                 }
+                result(response, nil)
+                break;
+            case .failure(let error):
+                if (WSHelper.logEverything) {
+                    print(error)
+                    if let data = response.data {
+                        let json = String(data: data, encoding: String.Encoding.utf8)
+                        print("Failure Response: \(String(describing: json))")
+                    }
+                }
+                result(nil, error)
+            }
+        })
+    }
+    
+    func getGenres(result: @escaping ResultBlockForGenres) {
+        let url = WSHelper.getBaseURL() + "genre/movie/list"
+        
+        let parameters = ["api_key" : kAPIKey, "language": language] as [String : Any]
+        
+        Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseObject(completionHandler: {  (response: DataResponse<GenreResponse>) in
+            print(response.request?.url)
+            switch response.result {
+            case .success:
+//                if (WSHelper.logEverything) {
+                    let data = response.data as Data?
+                    let jsonString = String(data: data!, encoding: .utf8)
+                    print(jsonString!)
+//                }
                 result(response, nil)
                 break;
             case .failure(let error):

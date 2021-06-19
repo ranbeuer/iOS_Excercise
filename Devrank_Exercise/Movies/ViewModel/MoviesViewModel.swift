@@ -19,6 +19,10 @@ class MoviesViewModel {
     var lastType: MoviesType = .Popular
     private var gettingMore: Bool = false
     
+    init() {
+        
+    }
+    
     func getPopularMovies(_ more: Bool = false) {
         lastType = .Popular
         if (popularMovies.count == 0 || more) {
@@ -61,6 +65,26 @@ class MoviesViewModel {
         }
     }
     
+    func getGenres(result:@escaping () -> Void) {
+        WSHelper.sharedInstance.getGenres { (response, error) in
+            guard error != nil else {
+                let genreResponse = response?.value
+                allGenres = genreResponse?.genres
+                result()
+                return
+            }
+            
+        }
+    }
+    
+    func toggleMovies() {
+        if (lastType == .Popular) {
+            getTopMovies()
+        } else {
+            getPopularMovies()
+    }
+    }
+    
     func checkForMore(movieIndex: NSInteger) -> Bool{
         guard gettingMore == true else {
             var movies = lastType == .Popular ? popularMovies : topMovies
@@ -76,7 +100,4 @@ class MoviesViewModel {
         }
         return gettingMore
     }
-    
-    
-    
 }

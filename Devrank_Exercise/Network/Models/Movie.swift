@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class Movie : Mappable {
+struct Movie : Mappable {
     var voteCount: Int?
     var id: Int?
     var isVideo: Bool?
@@ -23,18 +23,22 @@ class Movie : Mappable {
     var releaseDate: String?
     var forAdults: Bool?
     var genreIds: [Int]?
+    var genresString: String?
     
-    required init?(map: Map){
+    init?(map: Map){
         
     }
     
     var imageUrl : String {
         get {
+            guard posterPath != nil else {
+                return ""
+            }
             return "https://image.tmdb.org/t/p/w185" + posterPath!
         }
     }
     
-    func mapping(map: Map) {
+    mutating func mapping(map: Map) {
         voteCount <- map["vote_count"]
         id  <- map["id"]
         isVideo <- map["video"]
@@ -48,5 +52,15 @@ class Movie : Mappable {
         forAdults <- map["adult"]
         overView <- map["overview"]
         releaseDate <- map["release_date"]
+        processFields()
+    }
+    
+    mutating func processFields() {
+        releaseDate = releaseDate?.components(separatedBy: "-").first
+        let genresArray = allGenres?.filter{
+            (genreIds?.contains($0.id!))!
+        }
+        let genres: Array = (genresArray)!.map(){$0.name!}
+        genresString = genres.joined(separator: ", ")
     }
 }
